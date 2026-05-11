@@ -1,69 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Social Hub</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Kachimasu</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+overflow-x:hidden;
+background-image:
+radial-gradient(circle at top left,#1f1f1f 0%,transparent 40%),
+radial-gradient(circle at bottom right,#111 0%,transparent 40%);
+}
+
+header{
+padding:30px;
+font-size:20px;
+font-weight:bold;
+letter-spacing:3px;
+color:white;
+}
+
+.hero{
+min-height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.hero h1{
+font-size:70px;
+font-weight:900;
+margin-bottom:15px;
+background:linear-gradient(to right,#ffffff,#666);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+color:#888;
+font-size:18px;
+margin-bottom:50px;
+}
+
+.social-links{
+display:flex;
+gap:25px;
+flex-wrap:wrap;
+justify-content:center;
+margin-bottom:70px;
+}
+
+.social-links a{
+width:90px;
+height:90px;
+background:#151515;
+border-radius:25px;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:0.3s;
+box-shadow:0 0 25px rgba(255,255,255,0.05);
+}
+
+.social-links a:hover{
+transform:translateY(-10px) scale(1.1);
+background:#202020;
+box-shadow:0 0 35px rgba(255,255,255,0.2);
+}
+
+.social-links img{
+width:50px;
+height:50px;
+}
+
+.youtube-section{
+width:100%;
+max-width:600px;
+display:flex;
+flex-direction:column;
+gap:25px;
+}
+
+.channel{
+background:#151515;
+padding:25px;
+border-radius:25px;
+transition:0.3s;
+box-shadow:0 0 20px rgba(255,255,255,0.05);
+}
+
+.channel:hover{
+transform:scale(1.03);
+background:#1f1f1f;
+box-shadow:0 0 35px rgba(255,255,255,0.15);
+}
+
+.channel a{
+text-decoration:none;
+color:white;
+font-size:22px;
+font-weight:bold;
+}
+
+footer{
+padding:40px;
+text-align:center;
+color:#555;
+font-size:15px;
+}
+
+@media(max-width:600px){
+
+.hero h1{
+font-size:45px;
+}
+
+.social-links a{
+width:75px;
+height:75px;
+}
+
+.social-links img{
+width:42px;
+height:42px;
+}
+
+.channel a{
+font-size:18px;
+}
+
+}
+
+</style>
+
 </head>
+
 <body>
 
-  <header>
-    <div class="logo">MY NAME</div>
-  </header>
+<header>
+KACHIMASU
+</header>
 
-  <section class="hero">
-    <h1>MY SOCIAL HUB</h1>
-    <p>All my accounts in one place</p>
-    <div class="social-links">
-      <a href="https://instagram.com/YOUR_USERNAME" target="_blank">
-        <img src="instagram.png" alt="Instagram">
-      </a>
-      <a href="https://twitter.com/YOUR_USERNAME" target="_blank">
-        <img src="twitter.png" alt="Twitter">
-      </a>
-      <a href="https://reddit.com/user/YOUR_USERNAME" target="_blank">
-        <img src="reddit.png" alt="Reddit">
-      </a>
-      <a href="https://discord.com/users/YOUR_DISCORD_ID" target="_blank">
-        <img src="discord.png" alt="Discord">
-      </a>
-      <a href="https://youtube.com/channel/YOUTUBE1" target="_blank">
-        <img src="youtube.png" alt="YouTube 1">
-      </a>
-      <a href="https://youtube.com/channel/YOUTUBE2" target="_blank">
-        <img src="youtube.png" alt="YouTube 2">
-      </a>
-      <a href="https://youtube.com/channel/YOUTUBE3" target="_blank">
-        <img src="youtube.png" alt="YouTube 3">
-      </a>
-    </div>
-  </section>
+<section class="hero">
 
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="project-cards">
-      <div class="card">
-        <h3>Keet Cafe</h3>
-        <p>Homemade baking, Tasty Drinks</p>
-      </div>
-    </div>
-  </section>
+<h1>KACHIMASU</h1>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required>
-      <input type="email" placeholder="Your Email" required>
-      <textarea placeholder="Your Message" required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
+<p>Gaming • Content • Random Chaos</p>
 
-  <footer>
-    <p>Thanks for visiting!</p>
-  </footer>
+<div class="social-links">
 
-  <script src="script.js"></script>
+<a href="https://www.instagram.com/wins_chauhan?igsh=ejBwbmpmd29zeTJm" target="_blank">
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+</a>
+
+<a href="https://www.reddit.com/u/winschauhan/s/QXgqgGEHZI" target="_blank">
+<img src="https://cdn-icons-png.flaticon.com/512/2111/2111589.png">
+</a>
+
+<a href="https://discord.com/" target="_blank">
+<img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png">
+</a>
+
+</div>
+
+<div class="youtube-section">
+
+<div class="channel">
+<a href="https://youtube.com/@kachimasu?si=Vfe9XLlt3b2hiHZ6" target="_blank">
+🎮 Kachimasu Main Channel
+</a>
+</div>
+
+<div class="channel">
+<a href="https://youtube.com/@kachimasurandom?si=5obpKoCIFOR5Ic6j" target="_blank">
+🔥 Kachimasu Random
+</a>
+</div>
+
+<div class="channel">
+<a href="https://youtube.com/@kachimasu-c2m?si=2LzrdA__xaJrJ3ps" target="_blank">
+⚡ bakchodi show
+</a>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+Built with GitHub Pages
+</footer>
+
 </body>
-        </html>
+</html>
