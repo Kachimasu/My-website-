@@ -16,21 +16,93 @@ font-family:Arial,sans-serif;
 }
 
 body{
-background:#0a0a0a;
+background:#050505;
 color:white;
 overflow-x:hidden;
-background-image:
-radial-gradient(circle at top left,#1f1f1f 0%,transparent 40%),
-radial-gradient(circle at bottom right,#111 0%,transparent 40%);
+min-height:100vh;
+position:relative;
 }
+
+/* Animated Background */
+
+body::before{
+content:"";
+position:fixed;
+width:200%;
+height:200%;
+background:
+radial-gradient(circle,#1f1f1f 0%,transparent 20%),
+radial-gradient(circle,#111 0%,transparent 25%),
+radial-gradient(circle,#222 0%,transparent 15%);
+background-size:400px 400px;
+animation:bgmove 25s linear infinite;
+opacity:0.4;
+z-index:-2;
+}
+
+@keyframes bgmove{
+0%{
+transform:translate(0,0);
+}
+100%{
+transform:translate(-200px,-200px);
+}
+}
+
+/* Floating Glow */
+
+.glow{
+position:fixed;
+width:400px;
+height:400px;
+background:radial-gradient(circle,rgba(255,255,255,0.12),transparent 70%);
+filter:blur(50px);
+z-index:-1;
+animation:float 10s ease-in-out infinite alternate;
+}
+
+.glow1{
+top:-100px;
+left:-100px;
+}
+
+.glow2{
+bottom:-100px;
+right:-100px;
+animation-delay:5s;
+}
+
+@keyframes float{
+from{
+transform:translateY(0px);
+}
+to{
+transform:translateY(50px);
+}
+}
+
+/* Header */
 
 header{
 padding:30px;
-font-size:20px;
+font-size:22px;
 font-weight:bold;
-letter-spacing:3px;
-color:white;
+letter-spacing:5px;
+animation:fadeDown 1s ease;
 }
+
+@keyframes fadeDown{
+from{
+opacity:0;
+transform:translateY(-30px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* Hero */
 
 .hero{
 min-height:100vh;
@@ -42,20 +114,47 @@ text-align:center;
 padding:20px;
 }
 
+/* Animated Title */
+
 .hero h1{
-font-size:70px;
+font-size:80px;
 font-weight:900;
 margin-bottom:15px;
-background:linear-gradient(to right,#ffffff,#666);
+background:linear-gradient(90deg,#fff,#666,#fff);
+background-size:200%;
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
+animation:shine 5s linear infinite;
+}
+
+@keyframes shine{
+0%{
+background-position:0%;
+}
+100%{
+background-position:200%;
+}
 }
 
 .hero p{
-color:#888;
+color:#999;
 font-size:18px;
 margin-bottom:50px;
+animation:fadeUp 1.2s ease;
 }
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* Social Links */
 
 .social-links{
 display:flex;
@@ -68,19 +167,23 @@ margin-bottom:70px;
 .social-links a{
 width:90px;
 height:90px;
-background:#151515;
 border-radius:25px;
 display:flex;
 justify-content:center;
 align-items:center;
-transition:0.3s;
-box-shadow:0 0 25px rgba(255,255,255,0.05);
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,255,255,0.1);
+transition:0.4s;
+animation:fadeUp 1.5s ease;
 }
 
 .social-links a:hover{
-transform:translateY(-10px) scale(1.1);
-background:#202020;
-box-shadow:0 0 35px rgba(255,255,255,0.2);
+transform:translateY(-15px) scale(1.1) rotate(5deg);
+box-shadow:
+0 0 20px rgba(255,255,255,0.2),
+0 0 40px rgba(255,255,255,0.1);
+background:rgba(255,255,255,0.1);
 }
 
 .social-links img{
@@ -88,46 +191,77 @@ width:50px;
 height:50px;
 }
 
+/* YouTube Cards */
+
 .youtube-section{
 width:100%;
-max-width:600px;
+max-width:650px;
 display:flex;
 flex-direction:column;
 gap:25px;
 }
 
 .channel{
-background:#151515;
-padding:25px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(10px);
+padding:30px;
 border-radius:25px;
-transition:0.3s;
-box-shadow:0 0 20px rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.08);
+transition:0.4s;
+animation:fadeUp 2s ease;
+position:relative;
+overflow:hidden;
+}
+
+.channel::before{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(
+90deg,
+transparent,
+rgba(255,255,255,0.08),
+transparent
+);
+transition:0.7s;
+}
+
+.channel:hover::before{
+left:100%;
 }
 
 .channel:hover{
 transform:scale(1.03);
-background:#1f1f1f;
-box-shadow:0 0 35px rgba(255,255,255,0.15);
+box-shadow:
+0 0 30px rgba(255,255,255,0.12);
 }
 
 .channel a{
 text-decoration:none;
 color:white;
-font-size:22px;
+font-size:24px;
 font-weight:bold;
 }
+
+/* Footer */
 
 footer{
 padding:40px;
 text-align:center;
-color:#555;
+color:#666;
 font-size:15px;
+animation:fadeUp 2.5s ease;
 }
+
+/* Mobile */
 
 @media(max-width:600px){
 
 .hero h1{
-font-size:45px;
+font-size:48px;
 }
 
 .social-links a{
@@ -136,8 +270,8 @@ height:75px;
 }
 
 .social-links img{
-width:42px;
-height:42px;
+width:40px;
+height:40px;
 }
 
 .channel a{
@@ -152,6 +286,9 @@ font-size:18px;
 
 <body>
 
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
 <header>
 KACHIMASU
 </header>
@@ -160,7 +297,7 @@ KACHIMASU
 
 <h1>KACHIMASU</h1>
 
-<p>Gaming • Content • Random Chaos</p>
+<p>Gaming • Chaos • Creativity</p>
 
 <div class="social-links">
 
