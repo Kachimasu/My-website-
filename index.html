@@ -309,8 +309,8 @@ KACHIMASU
 <img src="https://cdn-icons-png.flaticon.com/512/2111/2111589.png">
 </a>
 
-<a href="https://discord.gg/rvNXNDpA2r" target="_blank">
-<img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png">
+<a href="#" onclick="openDiscordPopup()">
+    <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png">
 </a>
 
 </div>
@@ -342,6 +342,27 @@ KACHIMASU
 <footer>
 Built with GitHub Pages
 </footer>
+
+<!-- Discord Popup -->
+<div id="discordPopup" class="popup">
+    <div class="popup-content">
+
+        <video autoplay muted loop playsinline>
+            <source src="your-video.mp4" type="video/mp4">
+        </video>
+
+        <div class="popup-buttons">
+            <a href="https://discord.com/invite/heartscafe" target="_blank" class="join-btn">
+                Join Server
+            </a>
+
+            <button onclick="closeDiscordPopup()" class="close-btn">
+                Close
+            </button>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>
