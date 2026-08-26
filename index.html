@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>  
 <html lang="en">    
 <head>    
@@ -5,358 +6,481 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">  
 <title>Kachimasu</title>  
 <style>    
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;700;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body{
-background:#050505;
-color:white;
-overflow-x:hidden;
-min-height:100vh;
-position:relative;
+body {
+  background: #050505;
+  color: white;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Animated Background */
-body::before{
-content:"";
-position:fixed;
-width:200%;
-height:200%;
-background:
-radial-gradient(circle,#1f1f1f 0%,transparent 20%),
-radial-gradient(circle,#111 0%,transparent 25%),
-radial-gradient(circle,#222 0%,transparent 15%);
-background-size:400px 400px;
-animation:bgmove 25s linear infinite;
-opacity:0.4;
-z-index:-2;
-}
-
-@keyframes bgmove{
-0%{
-transform:translate(0,0);
-}
-100%{
-transform:translate(-200px,-200px);
-}
-}
-
-/* Floating Glow */
-.glow{
-position:fixed;
-width:400px;
-height:400px;
-background:radial-gradient(circle,rgba(255,255,255,0.12),transparent 70%);
-filter:blur(50px);
-z-index:-1;
-animation:float 10s ease-in-out infinite alternate;
-}
-
-.glow1{
-top:-100px;
-left:-100px;
-}
-
-.glow2{
-bottom:-100px;
-right:-100px;
-animation-delay:5s;
-}
-
-@keyframes float{
-from{
-transform:translateY(0px);
-}
-to{
-transform:translateY(50px);
-}
-}
-
-/* Header */
-header{
-padding:30px;
-font-size:22px;
-font-weight:bold;
-letter-spacing:5px;
-animation:fadeDown 1s ease;
-}
-
-@keyframes fadeDown{
-from{
-opacity:0;
-transform:translateY(-30px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* Hero */
-.hero{
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-padding:20px;
-}
-
-/* Animated Title */
-.hero h1{
-font-size:80px;
-font-weight:900;
-margin-bottom:15px;
-background:linear-gradient(90deg,#fff,#666,#fff);
-background-size:200%;
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-animation:shine 5s linear infinite;
-}
-
-@keyframes shine{
-0%{
-background-position:0%;
-}
-100%{
-background-position:200%;
-}
-}
-
-.hero p{
-color:#999;
-font-size:18px;
-margin-bottom:50px;
-animation:fadeUp 1.2s ease;
-}
-
-@keyframes fadeUp{
-from{
-opacity:0;
-transform:translateY(30px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-/* Social Links */
-.social-links{
-display:flex;
-gap:25px;
-flex-wrap:wrap;
-justify-content:center;
-margin-bottom:70px;
-}
-
-.social-links a{
-width:90px;
-height:90px;
-border-radius:25px;
-display:flex;
-justify-content:center;
-align-items:center;
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
-border:1px solid rgba(255,255,255,0.1);
-transition:0.4s;
-animation:fadeUp 1.5s ease;
-}
-
-.social-links a:hover{
-transform:translateY(-15px) scale(1.1) rotate(5deg);
-box-shadow:
-0 0 20px rgba(255,255,255,0.2),
-0 0 40px rgba(255,255,255,0.1);
-background:rgba(255,255,255,0.1);
-}
-
-.social-links img{
-width:50px;
-height:50px;
-}
-
-/* YouTube Cards */
-.youtube-section{
-width:100%;
-max-width:650px;
-display:flex;
-flex-direction:column;
-gap:25px;
-}
-
-.channel{
-background:rgba(255,255,255,0.05);
-backdrop-filter:blur(10px);
-padding:30px;
-border-radius:25px;
-border:1px solid rgba(255,255,255,0.08);
-transition:0.4s;
-animation:fadeUp 2s ease;
-position:relative;
-overflow:hidden;
-}
-
-.channel::before{
-content:"";
-position:absolute;
-top:0;
-left:-100%;
-width:100%;
-height:100%;
-background:linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,0.08),
-transparent
-);
-transition:0.7s;
-}
-
-.channel:hover::before{
-left:100%;
-}
-
-.channel:hover{
-transform:scale(1.03);
-box-shadow:
-0 0 30px rgba(255,255,255,0.12);
-}
-
-.channel a{
-text-decoration:none;
-color:white;
-font-size:24px;
-font-weight:bold;
-}
-
-/* Footer */
-footer{
-padding:40px;
-text-align:center;
-color:#666;
-font-size:15px;
-animation:fadeUp 2.5s ease;
-}
-
-/* --- NEW CSS FOR DISCORD MODAL --- */
-.discord-modal {
-  display: none; /* Hidden by default */
+/* 5% Nerdy: Tech Grid & Background Video Layer */
+#main-bg-video {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Show the modal when the URL target matches the ID */
-.discord-modal:target {
-  display: flex; 
-}
-
-.modal-bg-video {
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* Ensures the video covers the whole screen */
-  z-index: -1;
-  opacity: 0.5; /* Dims the video so buttons are visible */
+  object-fit: cover;
+  z-index: -4;
+  opacity: 0.4; /* Dimmed so text is readable */
+  transition: opacity 0.5s ease;
 }
 
-.modal-content {
-  background: rgba(0, 0, 0, 0.7);
-  padding: 50px;
-  border-radius: 20px;
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: -3;
+  pointer-events: none;
+}
+
+/* 5% Nerdy: Subtle Scanlines */
+.scanlines {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+  background-size: 100% 4px;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Floating Glow */
+.glow {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+  filter: blur(50px);
+  z-index: -2;
+  animation: float 10s ease-in-out infinite alternate;
+}
+
+.glow1 { top: -100px; left: -100px; }
+.glow2 { bottom: -100px; right: -100px; animation-delay: 5s; }
+
+@keyframes float {
+  from { transform: translateY(0px); }
+  to { transform: translateY(50px); }
+}
+
+/* Header */
+header {
+  padding: 30px;
+  font-size: 18px;
+  font-family: 'Share Tech Mono', monospace; /* Nerdy Font */
+  color: #888;
+  letter-spacing: 2px;
+  animation: fadeDown 1s ease;
+  position: absolute;
+  top: 0; left: 0;
+}
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(15px);
-  animation: fadeUp 0.5s ease;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Animated & Glitch Title */
+.hero h1 {
+  font-size: 80px;
+  font-weight: 900;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #fff, #555, #fff);
+  background-size: 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 5s linear infinite;
+  position: relative;
+  display: inline-block;
+}
+
+/* Glitch Hover Effect */
+.hero h1:hover {
+  animation: none;
+  -webkit-text-fill-color: #fff;
+  text-shadow: 2px 0 #0ff, -2px 0 #f0f;
+}
+
+@keyframes shine {
+  0% { background-position: 0%; }
+  100% { background-position: 200%; }
+}
+
+/* Subtitle with Terminal Effect */
+.hero p {
+  color: #aaa;
+  font-size: 16px;
+  font-family: 'Share Tech Mono', monospace;
+  margin-bottom: 50px;
+  animation: fadeUp 1.2s ease;
+}
+
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+  background-color: #fff;
+  vertical-align: middle;
+  animation: blink 1s step-end infinite;
+  margin-left: 5px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 70px;
+}
+
+.social-links a {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: 0.4s;
+  animation: fadeUp 1.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.social-links a::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: 0.5s;
+}
+
+.social-links a:hover::before { left: 100%; }
+.social-links a:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 20px rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.social-links img {
+  width: 40px;
+  height: 40px;
+  filter: grayscale(100%) brightness(200%);
+  transition: 0.3s;
+}
+.social-links a:hover img {
+  filter: grayscale(0%) brightness(100%);
+}
+
+/* YouTube Cards */
+.youtube-section {
+  width: 100%;
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.channel {
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid rgba(255,255,255,0.05);
+  border-left: 4px solid #fff; /* Techy accent border */
+  transition: 0.3s;
+  animation: fadeUp 2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.channel:hover {
+  transform: translateX(10px);
+  background: rgba(255,255,255,0.05);
+  border-left-color: #0ff; /* Nerdy neon cyan on hover */
+  box-shadow: -5px 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.channel a {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  font-weight: 700;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+/* Footer */
+footer {
+  padding: 30px;
+  text-align: center;
+  color: #444;
+  font-size: 13px;
+  font-family: 'Share Tech Mono', monospace;
+  animation: fadeUp 2.5s ease;
+}
+
+/* --- DISCORD MODAL --- */
+.discord-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(5px);
+}
+.discord-modal:target { display: flex; }
+
+.modal-content {
+  background: #0f1015;
+  padding: 50px;
+  border-radius: 15px;
+  text-align: center;
+  border: 1px solid rgba(88, 101, 242, 0.3);
+  box-shadow: 0 0 30px rgba(88, 101, 242, 0.2);
+  animation: fadeUp 0.4s ease;
+  position: relative;
 }
 
 .modal-content h2 {
-  font-size: 32px;
+  font-size: 28px;
   margin-bottom: 30px;
+  font-family: 'Inter', sans-serif;
 }
 
 .modal-buttons {
   display: flex;
-  gap: 20px;
+  gap: 15px;
   justify-content: center;
 }
 
 .btn {
   text-decoration: none;
-  padding: 15px 35px;
-  font-size: 18px;
-  font-weight: bold;
-  border-radius: 12px;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
   transition: 0.3s;
+  font-family: 'Share Tech Mono', monospace;
 }
 
 .join-btn {
-  background: #5865F2; /* Discord brand color */
+  background: #5865F2;
   color: white;
 }
-
-.join-btn:hover {
-  background: #4752C4;
-  transform: scale(1.05);
-}
+.join-btn:hover { background: #4752C4; }
 
 .close-btn {
   background: transparent;
+  color: #aaa;
+  border: 1px solid #444;
+}
+.close-btn:hover { color: #fff; border-color: #fff; }
+
+/* --- UPLOAD / SETTINGS PANEL (THE NERDY FEATURE) --- */
+.settings-toggle {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
   color: white;
-  border: 2px solid white;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 9999;
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+  font-size: 20px;
 }
 
-.close-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.05);
+.settings-toggle:hover {
+  background: rgba(255,255,255,0.2);
+  transform: rotate(90deg);
 }
+
+.settings-panel {
+  position: fixed;
+  bottom: 90px;
+  right: 30px;
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+  z-index: 9999;
+  transform: translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s;
+  font-family: 'Share Tech Mono', monospace;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.settings-panel.active {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.settings-panel h3 {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #0ff;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 10px;
+}
+
+.setting-group {
+  margin-bottom: 15px;
+}
+
+.setting-group label {
+  display: block;
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 5px;
+}
+
+.file-input-wrapper {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+.file-input-btn {
+  border: 1px dashed rgba(255,255,255,0.3);
+  color: white;
+  background: transparent;
+  padding: 8px 15px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  transition: 0.3s;
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.file-input-btn:hover { background: rgba(255,255,255,0.05); border-color: #fff; }
+
+.file-input-wrapper input[type=file] {
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+}
+
+.audio-controls {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.audio-btn {
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  flex: 1;
+}
+.audio-btn:hover { background: rgba(255,255,255,0.2); }
 
 /* Mobile */
 @media(max-width:600px){
-.hero h1{font-size:48px;}
-.social-links a{width:75px;height:75px;}
-.social-links img{width:40px;height:40px;}
-.channel a{font-size:18px;}
-.modal-buttons { flex-direction: column; }
+  .hero h1 { font-size: 45px; }
+  .social-links a { width: 65px; height: 65px; }
+  .social-links img { width: 30px; height: 30px; }
+  .channel a { font-size: 16px; }
+  .modal-buttons { flex-direction: column; }
+  .settings-panel { right: 15px; left: 15px; width: auto; bottom: 90px; }
 }
-
 </style>  
 </head>  
 <body>  
 
+<!-- Audio Player (Hidden) -->
+<audio id="bg-audio" loop></audio>
+<!-- Background Video Layer -->
+<video id="main-bg-video" autoplay loop muted playsinline></video>
+
+<!-- Nerdy Scanlines Overlay -->
+<div class="scanlines"></div>
+
 <div class="glow glow1"></div>
 <div class="glow glow2"></div>  
 
-<header>KACHIMASU</header>  
+<header>> SYS.KACHIMASU_</header>  
 
 <section class="hero">  
-  <h1>KACHIMASU</h1>  
-  <p>Gaming • Chaos • Creativity</p>  
+  <h1 data-text="KACHIMASU">KACHIMASU</h1>  
+  <p>> Gaming • Chaos • Creativity<span class="cursor"></span></p>  
   
   <div class="social-links">  
-    <a href="https://www.instagram.com/wins_chauhan?igsh=ejBwbmpmd29zeTJm" target="_blank">    
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">    
+    <a href="https://www.instagram.com/wins_chauhan?igsh=ejBwbmpmd29zeTJm" target="_blank" title="Instagram">    
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">    
     </a>  
-    <a href="https://www.reddit.com/u/winschauhan/s/QXgqgGEHZI" target="_blank">    
-      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111589.png">    
+    <a href="https://www.reddit.com/u/winschauhan/s/QXgqgGEHZI" target="_blank" title="Reddit">    
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111589.png" alt="Reddit">    
     </a>  
-    <!-- CHANGED: Link now points to #discord-modal instead of the external link -->
-    <a href="#discord-modal">    
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png">    
+    <a href="#discord-modal" title="Discord">    
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968756.png" alt="Discord">    
     </a>  
   </div>  
   
@@ -379,28 +503,109 @@ animation:fadeUp 2.5s ease;
   </div>  
 </section>  
 
-<footer>Built with GitHub Pages</footer>  
+<footer>// Built with GitHub Pages • Systems Nominal //</footer>  
 
-<!-- --- NEW HTML: THE DISCORD MODAL OVERLAY --- -->
+<!-- DISCORD MODAL -->
 <div id="discord-modal" class="discord-modal">
-  
-  <!-- BACKGROUND VIDEO: Replace the 'src' link with your actual video link -->
-  <!-- Note: autoplay, loop, muted, and playsinline are required for HTML videos to play automatically in the background -->
-  <video autoplay loop muted playsinline class="modal-bg-video">
-    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
-  </video>
-
   <div class="modal-content">
     <h2>Join the Community</h2>
     <div class="modal-buttons">
-      <!-- The actual Discord invite link -->
       <a href="https://discord.com/invite/heartscafe" target="_blank" class="btn join-btn">JOIN SERVER</a>
-      
-      <!-- Link to '#' removes the target, which closes the modal -->
-      <a href="#" class="btn close-btn">CLOSE TAB</a>
+      <a href="#" class="btn close-btn">ABORT</a>
     </div>
   </div>
 </div>
+
+<!-- SETTINGS PANEL (For uploading Video & Audio) -->
+<button class="settings-toggle" id="settingsBtn" title="Environment Settings">⚙</button>
+
+<div class="settings-panel" id="settingsPanel">
+  <h3>> ENV_SETTINGS</h3>
+  
+  <div class="setting-group">
+    <label>[ SET BACKGROUND VIDEO ]</label>
+    <div class="file-input-wrapper">
+      <button class="file-input-btn">Upload MP4/WEBM</button>
+      <input type="file" id="videoUpload" accept="video/*">
+    </div>
+  </div>
+
+  <div class="setting-group">
+    <label>[ SET BACKGROUND MUSIC ]</label>
+    <div class="file-input-wrapper">
+      <button class="file-input-btn">Upload MP3/WAV</button>
+      <input type="file" id="audioUpload" accept="audio/*">
+    </div>
+    <div class="audio-controls">
+      <button class="audio-btn" id="playAudio">▶ Play</button>
+      <button class="audio-btn" id="pauseAudio">⏸ Pause</button>
+      <button class="audio-btn" id="volAudio">Vol 50%</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Settings Panel Toggle
+  const settingsBtn = document.getElementById('settingsBtn');
+  const settingsPanel = document.getElementById('settingsPanel');
+  
+  settingsBtn.addEventListener('click', () => {
+    settingsPanel.classList.toggle('active');
+  });
+
+  // Video Upload Logic
+  const videoUpload = document.getElementById('videoUpload');
+  const mainBgVideo = document.getElementById('main-bg-video');
+
+  videoUpload.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if(file) {
+      const fileURL = URL.createObjectURL(file);
+      mainBgVideo.src = fileURL;
+      mainBgVideo.style.opacity = '0.6'; // Ensure it becomes visible
+    }
+  });
+
+  // Audio Upload Logic
+  const audioUpload = document.getElementById('audioUpload');
+  const bgAudio = document.getElementById('bg-audio');
+  const playBtn = document.getElementById('playAudio');
+  const pauseBtn = document.getElementById('pauseAudio');
+  const volBtn = document.getElementById('volAudio');
+
+  // Default volume
+  bgAudio.volume = 0.5;
+
+  audioUpload.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if(file) {
+      const fileURL = URL.createObjectURL(file);
+      bgAudio.src = fileURL;
+      bgAudio.play().catch(e => console.log("Audio play blocked by browser:", e));
+    }
+  });
+
+  playBtn.addEventListener('click', () => {
+    if(bgAudio.src) bgAudio.play();
+  });
+
+  pauseBtn.addEventListener('click', () => {
+    bgAudio.pause();
+  });
+
+  volBtn.addEventListener('click', () => {
+    if(bgAudio.volume === 0.5) {
+      bgAudio.volume = 1.0;
+      volBtn.innerText = "Vol 100%";
+    } else if (bgAudio.volume === 1.0) {
+      bgAudio.volume = 0.2;
+      volBtn.innerText = "Vol 20%";
+    } else {
+      bgAudio.volume = 0.5;
+      volBtn.innerText = "Vol 50%";
+    }
+  });
+</script>
 
 </body>    
 </html>
