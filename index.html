@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>  
 <html lang="en">    
 <head>    
@@ -88,6 +87,13 @@ header {
   animation: fadeDown 1s ease;
   position: absolute;
   top: 0; left: 0;
+  cursor: pointer; /* Indicates it can be clicked */
+  z-index: 100;
+}
+
+header:hover {
+  color: #fff;
+  text-shadow: 0 0 10px rgba(255,255,255,0.5);
 }
 
 @keyframes fadeDown {
@@ -322,7 +328,12 @@ footer {
 }
 .close-btn:hover { color: #fff; border-color: #fff; }
 
-/* --- UPLOAD / SETTINGS PANEL (THE NERDY FEATURE) --- */
+/* --- UPLOAD / SETTINGS PANEL (ADMIN ONLY) --- */
+/* Hidden by default until Admin is authenticated */
+.admin-hidden {
+  display: none !important;
+}
+
 .settings-toggle {
   position: fixed;
   bottom: 30px;
@@ -346,6 +357,9 @@ footer {
 .settings-toggle:hover {
   background: rgba(255,255,255,0.2);
   transform: rotate(90deg);
+  box-shadow: 0 0 15px #0ff;
+  border-color: #0ff;
+  color: #0ff;
 }
 
 .settings-panel {
@@ -353,7 +367,7 @@ footer {
   bottom: 90px;
   right: 30px;
   background: rgba(10, 10, 10, 0.95);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid #0ff; /* Admin styling */
   padding: 20px;
   border-radius: 12px;
   width: 300px;
@@ -363,7 +377,7 @@ footer {
   pointer-events: none;
   transition: 0.3s;
   font-family: 'Share Tech Mono', monospace;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+  box-shadow: 0 10px 30px rgba(0,255,255,0.2);
 }
 
 .settings-panel.active {
@@ -412,7 +426,7 @@ footer {
   font-family: 'Share Tech Mono', monospace;
 }
 
-.file-input-btn:hover { background: rgba(255,255,255,0.05); border-color: #fff; }
+.file-input-btn:hover { background: rgba(0,255,255,0.1); border-color: #0ff; color: #0ff; }
 
 .file-input-wrapper input[type=file] {
   font-size: 100px;
@@ -439,8 +453,9 @@ footer {
   cursor: pointer;
   font-size: 12px;
   flex: 1;
+  font-family: 'Share Tech Mono', monospace;
 }
-.audio-btn:hover { background: rgba(255,255,255,0.2); }
+.audio-btn:hover { background: rgba(0,255,255,0.2); color: #0ff; }
 
 /* Mobile */
 @media(max-width:600px){
@@ -455,9 +470,12 @@ footer {
 </head>  
 <body>  
 
-<!-- Audio Player (Hidden) -->
+<!-- 
+  TO MAKE AUDIO/VIDEO PERMANENT FOR EVERYONE:
+  1. Add a direct URL to the 'src' attributes below instead of leaving them empty.
+  Example: <video id="main-bg-video" src="https://your-link.com/video.mp4" autoplay loop muted playsinline></video>
+-->
 <audio id="bg-audio" loop></audio>
-<!-- Background Video Layer -->
 <video id="main-bg-video" autoplay loop muted playsinline></video>
 
 <!-- Nerdy Scanlines Overlay -->
@@ -466,7 +484,8 @@ footer {
 <div class="glow glow1"></div>
 <div class="glow glow2"></div>  
 
-<header>> SYS.KACHIMASU_</header>  
+<!-- TRIPLE CLICK THIS HEADER TO UNLOCK ADMIN PANEL -->
+<header id="secret-header">> SYS.KACHIMASU_</header>  
 
 <section class="hero">  
   <h1 data-text="KACHIMASU">KACHIMASU</h1>  
@@ -516,14 +535,14 @@ footer {
   </div>
 </div>
 
-<!-- SETTINGS PANEL (For uploading Video & Audio) -->
-<button class="settings-toggle" id="settingsBtn" title="Environment Settings">⚙</button>
+<!-- SETTINGS PANEL (ADMIN ONLY - HIDDEN INITIALLY) -->
+<button class="settings-toggle admin-hidden" id="settingsBtn" title="Admin Control Panel">⚙</button>
 
-<div class="settings-panel" id="settingsPanel">
-  <h3>> ENV_SETTINGS</h3>
+<div class="settings-panel admin-hidden" id="settingsPanel">
+  <h3>> ADMIN_CONTROL_PANEL</h3>
   
   <div class="setting-group">
-    <label>[ SET BACKGROUND VIDEO ]</label>
+    <label>[ OVERRIDE BG VIDEO (LOCAL) ]</label>
     <div class="file-input-wrapper">
       <button class="file-input-btn">Upload MP4/WEBM</button>
       <input type="file" id="videoUpload" accept="video/*">
@@ -531,7 +550,7 @@ footer {
   </div>
 
   <div class="setting-group">
-    <label>[ SET BACKGROUND MUSIC ]</label>
+    <label>[ OVERRIDE AUDIO (LOCAL) ]</label>
     <div class="file-input-wrapper">
       <button class="file-input-btn">Upload MP3/WAV</button>
       <input type="file" id="audioUpload" accept="audio/*">
@@ -545,15 +564,55 @@ footer {
 </div>
 
 <script>
-  // Settings Panel Toggle
+  // --- SECRET ADMIN LOGIN LOGIC ---
+  const secretHeader = document.getElementById('secret-header');
   const settingsBtn = document.getElementById('settingsBtn');
   const settingsPanel = document.getElementById('settingsPanel');
   
+  let clickCount = 0;
+  let clickTimer;
+  
+  // CHANGE THIS TO WHATEVER PASSWORD YOU WANT
+  const ADMIN_PASSWORD = "kachi"; 
+
+  // Check if admin is already logged in for this session
+  if (sessionStorage.getItem('isAdmin') === 'true') {
+    settingsBtn.classList.remove('admin-hidden');
+    settingsPanel.classList.remove('admin-hidden');
+  }
+
+  secretHeader.addEventListener('click', () => {
+    clickCount++;
+    
+    // Reset click count if they don't click fast enough
+    clearTimeout(clickTimer);
+    clickTimer = setTimeout(() => {
+      clickCount = 0;
+    }, 1000); // 1 second window to click 3 times
+
+    // If clicked 3 times
+    if (clickCount === 3) {
+      clickCount = 0; // reset
+      setTimeout(() => {
+        const attempt = prompt("SYS_OVERRIDE_INITIATED\n\nEnter Admin Passcode:");
+        if (attempt === ADMIN_PASSWORD) {
+          alert("ACCESS GRANTED. Welcome Admin.");
+          sessionStorage.setItem('isAdmin', 'true');
+          settingsBtn.classList.remove('admin-hidden');
+          settingsPanel.classList.remove('admin-hidden');
+        } else if (attempt !== null) {
+          alert("ACCESS DENIED.");
+        }
+      }, 100);
+    }
+  });
+
+  // --- SETTINGS PANEL LOGIC ---
   settingsBtn.addEventListener('click', () => {
     settingsPanel.classList.toggle('active');
   });
 
-  // Video Upload Logic
+  // Video Upload Logic (Temporary local change)
   const videoUpload = document.getElementById('videoUpload');
   const mainBgVideo = document.getElementById('main-bg-video');
 
@@ -562,18 +621,17 @@ footer {
     if(file) {
       const fileURL = URL.createObjectURL(file);
       mainBgVideo.src = fileURL;
-      mainBgVideo.style.opacity = '0.6'; // Ensure it becomes visible
+      mainBgVideo.style.opacity = '0.6'; 
     }
   });
 
-  // Audio Upload Logic
+  // Audio Upload Logic (Temporary local change)
   const audioUpload = document.getElementById('audioUpload');
   const bgAudio = document.getElementById('bg-audio');
   const playBtn = document.getElementById('playAudio');
   const pauseBtn = document.getElementById('pauseAudio');
   const volBtn = document.getElementById('volAudio');
 
-  // Default volume
   bgAudio.volume = 0.5;
 
   audioUpload.addEventListener('change', function(event) {
